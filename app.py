@@ -1,6 +1,6 @@
 # app.py
 from flask import Flask, render_template
-from models.user import db, User
+from models.users import db, User
 from extensions import login_manager
 from routes.auth import auth_bp
 from routes.users import users_bp
