@@ -8,5 +8,8 @@
     <label>Senha</label>
     <input type="password" name="password" required>
     <button type="submit">Entrar</button>
+    <div class="forgot-password">
+        <a href="{{ url_for('auth.forgot_password') }}">Esqueci minha senha</a>
+    </div>
 </form>
 {% endblock %}
