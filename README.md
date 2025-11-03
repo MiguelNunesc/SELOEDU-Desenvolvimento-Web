@@ -1,1 +1,5 @@
-11/10 - Relação entre Users e Perfil
+11/10 - Definição da relação de users e profile.
+
+22/10 - Implementação das funcionalidades forgot password e reset password.
+
+03/11 - Implementação da sessão de treinamentos, com um sistemas para criação e exclusão.
