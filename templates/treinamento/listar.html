@@ -9,14 +9,29 @@
         <th>Descrição</th>
         <th>Data</th>
         <th>Coordenador</th>
+        {% if current_user.role == "coordenador" or current_user.role == "master" %}
+        <th>Ações</th>
+        {% endif %}
     </tr>
+
     {% for t in treinamentos %}
     <tr>
         <td>{{ t.id }}</td>
         <td>{{ t.titulo }}</td>
         <td>{{ t.descricao or '-' }}</td>
-        <td>{{ t.data }}</td>
+        <td>{{ t.data.strftime('%d/%m/%Y') if t.data else '-' }}</td>
         <td>{{ t.coordenador.nome if t.coordenador else '-' }}</td>
+
+        {% if current_user.role == "coordenador" or current_user.role == "master" %}
+        <td>
+            <form action="{{ url_for('treinamento_bp.deletar_treinamento', id=t.id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Tem certeza que deseja excluir este treinamento?')">
+                    Excluir
+                </button>
+            </form>
+        </td>
+        {% endif %}
     </tr>
     {% endfor %}
 </table>

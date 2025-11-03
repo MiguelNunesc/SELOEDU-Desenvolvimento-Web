@@ -38,3 +38,26 @@ def novo_treinamento_view():
         return redirect(url_for("treinamento_bp.listar_treinamentos"))
 
     return render_template("treinamento/novo.html")
+
+@login_required
+def deletar_treinamento_view(id):
+    from flask import redirect, url_for, flash
+    from models.treinamento import Treinamento
+
+    treinamento = Treinamento.query.get_or_404(id)
+
+    # Verificação de permissão
+    if current_user.role not in ["coordenador", "master"]:
+        flash("Você não tem permissão para excluir treinamentos.", "danger")
+        return redirect(url_for("treinamento_bp.listar_treinamentos"))
+
+    try:
+        db.session.delete(treinamento)
+        db.session.commit()
+        flash("Treinamento excluído com sucesso!", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash("Erro ao excluir treinamento.", "danger")
+        print("Erro:", e)
+
+    return redirect(url_for("treinamento_bp.listar_treinamentos"))
