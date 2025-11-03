@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lista de Treinamentos</h2>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Descrição</th>
+        <th>Data</th>
+        <th>Coordenador</th>
+    </tr>
+    {% for t in treinamentos %}
+    <tr>
+        <td>{{ t.id }}</td>
+        <td>{{ t.titulo }}</td>
+        <td>{{ t.descricao or '-' }}</td>
+        <td>{{ t.data }}</td>
+        <td>{{ t.coordenador.nome if t.coordenador else '-' }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% if current_user.role == "coordenador" or current_user.role == "master" %}
+<p><a href="{{ url_for('treinamento_bp.novo_treinamento') }}">Cadastrar novo treinamento</a></p>
+{% endif %}
+{% endblock %}

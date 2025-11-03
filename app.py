@@ -5,6 +5,7 @@ from extensions import login_manager, mail
 from config import Config
 from routes.auth import auth_bp
 from routes.users import users_bp
+from routes.treinamento import treinamento_bp
 
 def create_app():
     app = Flask(__name__)
@@ -20,6 +21,7 @@ def create_app():
     # registrar blueprints
     app.register_blueprint(auth_bp)
     app.register_blueprint(users_bp)
+    app.register_blueprint(treinamento_bp)
 
     @login_manager.user_loader
     def load_user(user_id):
