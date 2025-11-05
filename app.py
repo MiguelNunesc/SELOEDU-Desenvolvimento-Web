@@ -1,4 +1,5 @@
 # app.py
+import os
 from flask import Flask, render_template
 from models.users import db, User
 from extensions import login_manager, mail
@@ -17,6 +18,9 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+
+    app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'uploads')
+    app.config['THUMBNAIL_SIZE'] = (200, 200)
 
     # registrar blueprints
     app.register_blueprint(auth_bp)

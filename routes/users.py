@@ -6,9 +6,13 @@ from views.users import (
     dashboard_view, list_users, create_user,
     show_user, edit_user, delete_user, render_perfil_page
 )
+from views.profile_view import profile_view
 
 users_bp = Blueprint("users", __name__)
 
+@users_bp.route("/profile", methods=["GET", "POST"])
+def profile():
+    return profile_view()
 
 @users_bp.route("/dashboard")
 @login_required
